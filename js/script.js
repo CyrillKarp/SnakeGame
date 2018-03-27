@@ -73,13 +73,13 @@ Block.prototype.equal = function(otherBlock) {
 
 const Snake = function() {
     this.segments = [new Block(7, 5), new Block(6, 5), new Block(5, 5)];
-    this.direction = "right";
-    this.nextDirection = "right";
+    this.direction = 'right';
+    this.nextDirection = 'right';
 };
 
 Snake.prototype.draw = function() {
     for (let i = 0; i < this.segments.length; i++) {
-        this.segments[i].drawSquare("Blue");
+        this.segments[i].drawSquare('Blue');
     }
 };
 
@@ -89,13 +89,13 @@ Snake.prototype.move = function() {
     
     this.direction = this.nextDirection;
     
-    if (this.direction === "right") {
+    if (this.direction === 'right') {
         newHead = new Block(head.col + 1, head.row);
-    } else if (this.direction === "down") {
+    } else if (this.direction === 'down') {
         newHead = new Block(head.col, head.row + 1);
-    } else if (this.direction === "left") {
+    } else if (this.direction === 'left') {
         newHead = new Block(head.col - 1, head.row);
-    } else if (this.direction === "up") {
+    } else if (this.direction === 'up') {
         newHead = new Block(head.col, head.row - 1);
     }
     if (this.checkCollision(newHead)) {
@@ -127,13 +127,13 @@ Snake.prototype.checkCollision = function(head) {
 };
 
 Snake.prototype.setDirection = function(newDirection) {
-    if (this.direction === "up" && newDirection === "down") {
+    if (this.direction === 'up' && newDirection === 'down') {
         return;
-    } else if (this.direction === "right" && newDirection === "left") {
+    } else if (this.direction === 'right' && newDirection === 'left') {
         return;
-    } else if (this.direction === "down" && newDirection === "up") {
+    } else if (this.direction === 'down' && newDirection === 'up') {
         return;
-    } else if (this.direction === "left" && newDirection === "right") {
+    } else if (this.direction === 'left' && newDirection === 'right') {
         return;
     }
     this.nextDirection = newDirection;
@@ -144,7 +144,7 @@ const Apple = function() {
 };
 
 Apple.prototype.draw = function() {
-    this.position.drawCircle("LimeGreen");
+    this.position.drawCircle('LimeGreen');
 };
 
 Apple.prototype.move = function() {
@@ -166,17 +166,17 @@ const intervalId = setInterval(function() {
 }, 200);
 
 const directions = {
-    37: "left",
-    65: "left",
-    38: "up",
-    87: "up",
-    39: "right",
-    68: "right",
-    40: "down",
-    83: "down"
+    37: 'left',
+    65: 'left',
+    38: 'up',
+    87: 'up',
+    39: 'right',
+    68: 'right',
+    40: 'down',
+    83: 'down'
 };
 
-addEventListener("keydown", function(event) {
+addEventListener('keydown', function(event) {
     const newDirection = directions[event.keyCode];
     if (newDirection !== undefined) {
         snake.setDirection(newDirection);
