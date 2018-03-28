@@ -26,7 +26,7 @@ const drawScore = function() {
 };
 
 const gameOver = function() {
-    clearInterval(intervalId);
+    playing = false;
     ctx.font = '60px Courier';
     ctx.fillStyle = 'Black';
     ctx.textAlign = 'center';
@@ -37,7 +37,7 @@ const gameOver = function() {
 const circle = function(x, y, radius, fillCircle) {
     ctx.beginPath();
     ctx.arc(x, y, radius, 0, Math.PI * 2, false);
-    
+
     if (fillCircle) {
         ctx.fill();
     } else {
@@ -60,7 +60,7 @@ Block.prototype.drawSquare = function(color) {
 Block.prototype.drawCircle = function(color) {
     const centerX = this.col * blockSize + blockSize / 2;
     const centerY = this.row * blockSize + blockSize / 2;
-    
+
     ctx.fillStyle = color;
     circle(centerX, centerY, blockSize / 2, true);
 };
@@ -68,8 +68,6 @@ Block.prototype.drawCircle = function(color) {
 Block.prototype.equal = function(otherBlock) {
     return this.col === otherBlock.col && this.row === otherBlock.row;
 };
-
-
 
 const Snake = function() {
     this.segments = [new Block(7, 5), new Block(6, 5), new Block(5, 5)];
@@ -86,9 +84,9 @@ Snake.prototype.draw = function() {
 Snake.prototype.move = function() {
     const head = this.segments[0];
     let newHead;
-    
+
     this.direction = this.nextDirection;
-    
+
     if (this.direction === 'right') {
         newHead = new Block(head.col + 1, head.row);
     } else if (this.direction === 'down') {
@@ -105,6 +103,7 @@ Snake.prototype.move = function() {
     this.segments.unshift(newHead);
     if (newHead.equal(apple.position)) {
         score++;
+        animationTime -= 10;
         apple.move();
     } else {
         this.segments.pop();
@@ -156,14 +155,23 @@ Apple.prototype.move = function() {
 const snake = new Snake();
 const apple = new Apple();
 
-const intervalId = setInterval(function() {
+let playing = true;
+let animationTime = 100;
+
+const gameLoop = function() {
     ctx.clearRect(0, 0, width, height);
     drawScore();
     snake.move();
     snake.draw();
     apple.draw();
     drawBorder();
-}, 200);
+
+    if (playing) {
+        setTimeout(gameLoop, animationTime);
+    }
+};
+
+gameLoop();
 
 const directions = {
     37: 'left',
@@ -182,4 +190,3 @@ addEventListener('keydown', function(event) {
         snake.setDirection(newDirection);
     }
 });
-
