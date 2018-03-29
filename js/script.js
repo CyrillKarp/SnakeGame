@@ -10,7 +10,7 @@ const heightInBlocks = height / blockSize;
 let score = 0;
 
 const drawBorder = function() {
-    ctx.fillStyle = 'Gray';
+    ctx.fillStyle = '#dfe6e9';
     ctx.fillRect(0, 0, width, blockSize);
     ctx.fillRect(0, height - blockSize, width, blockSize);
     ctx.fillRect(0, 0, blockSize, height);
@@ -18,8 +18,8 @@ const drawBorder = function() {
 };
 
 const drawScore = function() {
-    ctx.font = '20px Courier';
-    ctx.fillStyle = 'Black';
+    ctx.font = '20px Roboto';
+    ctx.fillStyle = '#0984e3';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'top';
     ctx.fillText('Score: ' + score, blockSize, blockSize);
@@ -27,11 +27,18 @@ const drawScore = function() {
 
 const gameOver = function() {
     playing = false;
-    ctx.font = '60px Courier';
-    ctx.fillStyle = 'Black';
+    
+    const btnPlayAgain = document.getElementById('btn-play-again');
+    btnPlayAgain.style.display = 'block';
+    btnPlayAgain.addEventListener('click', function() {
+        window.location.reload();
+    });
+    
+    ctx.font = '60px Roboto';
+    ctx.fillStyle = '#0984e3';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('Game Over!', width / 2, height / 2);
+    ctx.fillText('Game Over !', width / 2, height / 2);
 };
 
 const circle = function(x, y, radius, fillCircle) {
@@ -70,14 +77,14 @@ Block.prototype.equal = function(otherBlock) {
 };
 
 const Snake = function() {
-    this.segments = [new Block(7, 5), new Block(6, 5), new Block(5, 5)];
+    this.segments = [new Block(26, 25), new Block(25, 25), new Block(24, 25)];
     this.direction = 'right';
     this.nextDirection = 'right';
 };
 
 Snake.prototype.draw = function() {
     for (let i = 0; i < this.segments.length; i++) {
-        this.segments[i].drawSquare('Blue');
+        this.segments[i].drawSquare('#0984e3');
     }
 };
 
@@ -143,7 +150,7 @@ const Apple = function() {
 };
 
 Apple.prototype.draw = function() {
-    this.position.drawCircle('LimeGreen');
+    this.position.drawCircle('#ff7675');
 };
 
 Apple.prototype.move = function() {
