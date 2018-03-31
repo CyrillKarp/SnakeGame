@@ -9,7 +9,7 @@ const heightInBlocks = height / blockSize;
 
 let score = 0;
 
-const drawBorder = function() {
+const drawBorder = () => {
     ctx.fillStyle = '#dfe6e9';
     ctx.fillRect(0, 0, width, blockSize);
     ctx.fillRect(0, height - blockSize, width, blockSize);
@@ -17,7 +17,7 @@ const drawBorder = function() {
     ctx.fillRect(width - blockSize, 0, blockSize, height);
 };
 
-const drawScore = function() {
+const drawScore = () => {
     ctx.font = '20px Roboto';
     ctx.fillStyle = '#0984e3';
     ctx.textAlign = 'left';
@@ -25,7 +25,7 @@ const drawScore = function() {
     ctx.fillText('Score: ' + score, blockSize, blockSize);
 };
 
-const gameOver = function() {
+const gameOver = () => {
     playing = false;
     
     const btnPlayAgain = document.getElementById('btn-play-again');
@@ -41,7 +41,7 @@ const gameOver = function() {
     ctx.fillText('Game Over !', width / 2, height / 2);
 };
 
-const circle = function(x, y, radius, fillCircle) {
+const circle = (x, y, radius, fillCircle) => {
     ctx.beginPath();
     ctx.arc(x, y, radius, 0, Math.PI * 2, false);
 
@@ -165,7 +165,7 @@ const apple = new Apple();
 let playing = true;
 let animationTime = 100;
 
-const gameLoop = function() {
+const gameLoop = () => {
     ctx.clearRect(0, 0, width, height);
     drawScore();
     snake.move();
@@ -191,7 +191,7 @@ const directions = {
     83: 'down'
 };
 
-addEventListener('keydown', function(event) {
+addEventListener('keydown', event => {
     const newDirection = directions[event.keyCode];
     if (newDirection !== undefined) {
         snake.setDirection(newDirection);
